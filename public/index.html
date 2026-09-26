@@ -152,6 +152,58 @@ function submitBooking(){
  closeModal();
 }
 render();
+  <script>
+async function registerUser(){
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value;
+  const age = Number(document.getElementById("regAge").value);
+
+  if(!name || !email || !password || age < 18){
+    alert("Please enter valid details. You must be 18+.");
+    return;
+  }
+
+  const res = await fetch("/api/register",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name,email,password,age})
+  });
+
+  const data = await res.json();
+
+  if(!res.ok){
+    alert(data.error || "Registration failed");
+    return;
+  }
+
+  localStorage.setItem("token",data.token);
+  alert("Registration successful!");
+  location.reload();
+}
+
+async function loginUser(){
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const res = await fetch("/api/login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,password})
+  });
+
+  const data = await res.json();
+
+  if(!res.ok){
+    alert(data.error || "Login failed");
+    return;
+  }
+
+  localStorage.setItem("token",data.token);
+  alert("Login successful!");
+  location.reload();
+}
+</script>
 </script>
 </body>
 </html>
