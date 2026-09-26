@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: datemate
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
