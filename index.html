@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DateMate — 18+ Companionship</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff7fb;color:#241722}
+header{background:#7b1858;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:800}.badge{font-size:12px;background:#fff;color:#7b1858;padding:6px 10px;border-radius:20px}
+.hero{text-align:center;padding:65px 20px;background:linear-gradient(135deg,#fff0f7,#f7e9ff)}
+.hero h1{font-size:42px;margin:0 0 12px}.hero p{max-width:650px;margin:0 auto 25px;color:#5e4d58}
+button{border:0;border-radius:10px;padding:12px 18px;background:#7b1858;color:white;font-weight:700;cursor:pointer}
+.container{max-width:1100px;margin:auto;padding:35px 20px}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px}
+input,select{padding:12px;border:1px solid #ddd;border-radius:10px;background:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 5px 20px #7b185812}
+.avatar{height:180px;background:linear-gradient(135deg,#f4b5d6,#c9a6ef);display:grid;place-items:center;font-size:60px}
+.card-body{padding:18px}.card h3{margin:0 0 5px}.muted{color:#777;font-size:14px}.price{font-weight:800;margin:14px 0}
+.modal{display:none;position:fixed;inset:0;background:#0008;place-items:center;padding:20px}.box{background:white;padding:25px;border-radius:18px;width:min(420px,100%)}.box h2{margin-top:0}.box input{width:100%;margin:7px 0}
+footer{text-align:center;padding:30px;color:#756570;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="logo">💗 DateMate</div><div class="badge">18+ Adults Only</div></header>
+<section class="hero">
+<h1>Meet. Connect. Spend Time.</h1>
+<p>Discover adult companions for social dates and consensual companionship. All bookings are subject to our safety rules and age verification.</p>
+<button onclick="document.getElementById('profiles').scrollIntoView()">Find a Companion</button>
+</section>
+<main class="container" id="profiles">
+<h2>Find a Companion</h2>
+<div class="filters">
+<input id="search" placeholder="Search by name or city" oninput="render()">
+<select id="gender" onchange="render()"><option value="">All</option><option>Female</option><option>Male</option></select>
+</div>
+<div class="grid" id="cards"></div>
+</main>
+<div class="modal" id="modal"><div class="box">
+<h2>Booking Request</h2><p id="chosen" class="muted"></p>
+<input id="date" type="date"><input id="time" type="time"><input id="duration" type="number" min="1" placeholder="Duration (hours)">
+<button onclick="submitBooking()">Send Request</button>
+<button style="background:#ddd;color:#333;margin-left:6px" onclick="closeModal()">Cancel</button>
+<p class="muted">Demo only — no real payment or booking is processed.</p>
+</div></div>
+<footer>© 2026 DateMate · 18+ only · Consent & safety required · Demo website</footer>
+<script>
+const profiles=[
+{name:"Aisha",city:"Kolkata",gender:"Female",emoji:"👩",price:"₹1,500 / hour"},
+{name:"Riya",city:"Durgapur",gender:"Female",emoji:"👩‍🦰",price:"₹1,200 / hour"},
+{name:"Arjun",city:"Kolkata",gender:"Male",emoji:"👨",price:"₹1,400 / hour"},
+{name:"Rahul",city:"Asansol",gender:"Male",emoji:"👨‍🦱",price:"₹1,100 / hour"}
+];
+function render(){
+ const q=document.getElementById('search').value.toLowerCase(),g=document.getElementById('gender').value;
+ document.getElementById('cards').innerHTML=profiles.filter(p=>(!g||p.gender===g)&&(p.name.toLowerCase().includes(q)||p.city.toLowerCase().includes(q))).map((p,i)=>
+ `<div class="card"><div class="avatar">${p.emoji}</div><div class="card-body"><h3>${p.name}</h3><div class="muted">${p.city} · ${p.gender} · 18+</div><div class="price">${p.price}</div><button onclick="openModal(${i})">Request Booking</button></div></div>`).join('');
+}
+function openModal(i){document.getElementById('chosen').textContent='Booking request for '+profiles[i].name+' — '+profiles[i].city;document.getElementById('modal').style.display='grid'}
+function closeModal(){document.getElementById('modal').style.display='none'}
+function submitBooking(){alert('Demo request submitted. Add a real backend/database before accepting live bookings.');closeModal()}
+render();
+</script>
+</body></html>
