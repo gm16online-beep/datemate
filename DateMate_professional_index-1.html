@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8b1760">
+<meta name="description" content="DateMate — 18+ social companionship and date booking platform.">
+<title>DateMate — 18+ Companionship</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --primary:#8b1760;--primary2:#b72a7f;--ink:#241526;--muted:#6f6470;
+  --bg:#fff8fc;--card:#fff;--line:#eadde7;--soft:#f8e6f4;
+}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.nav{position:sticky;top:0;z-index:20;background:rgba(139,23,96,.97);color:#fff;box-shadow:0 2px 18px #4b07362b}
+.nav-inner{max-width:1180px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:25px;font-weight:850;letter-spacing:-.5px}.logo span{font-size:25px}
+.badge{border:1px solid #ffffff66;background:#fff;color:var(--primary);padding:8px 13px;border-radius:999px;font-weight:750;font-size:13px}
+.hero{background:radial-gradient(circle at 15% 15%,#fff 0,#fff0 30%),linear-gradient(135deg,#fff0fa,#f2e5ff);padding:72px 20px 70px;text-align:center}
+.hero-inner{max-width:850px;margin:auto}
+.eyebrow{display:inline-block;background:#ffffffb8;border:1px solid #fff;padding:7px 12px;border-radius:999px;color:var(--primary);font-weight:750;font-size:13px;margin-bottom:16px}
+h1{font-size:clamp(38px,7vw,66px);line-height:1.03;letter-spacing:-2px;margin:0 0 18px}
+.hero p{font-size:clamp(16px,2.2vw,20px);line-height:1.55;color:#5e5360;max-width:700px;margin:0 auto 28px}
+.cta{border:0;background:var(--primary);color:#fff;padding:14px 22px;border-radius:13px;font-weight:800;box-shadow:0 8px 22px #8b176044}
+.cta:hover{background:#70104e;transform:translateY(-1px)}
+.section{max-width:1180px;margin:auto;padding:48px 20px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px}
+h2{font-size:30px;margin:0 0 6px}.sub{color:var(--muted);margin:0}
+.filters{display:grid;grid-template-columns:1fr 180px;gap:12px;margin:22px 0 28px}
+input,select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #8b17601a}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 25px #5b24400d;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 32px #5b244018}
+.avatar{height:185px;display:grid;place-items:center;background:linear-gradient(135deg,#f2a6d5,#caa7ef);font-size:78px}
+.body{padding:18px}.name{font-size:21px;font-weight:850;margin:0 0 5px}.meta{color:var(--muted);font-size:14px}.price{font-size:18px;font-weight:850;margin:15px 0}
+.book{width:100%;border:0;background:var(--primary);color:#fff;padding:12px;border-radius:11px;font-weight:800}
+.empty{display:none;text-align:center;padding:40px;border:1px dashed var(--line);border-radius:15px;color:var(--muted)}
+.safety{background:#241526;color:#fff}.safety-inner{max-width:1180px;margin:auto;padding:44px 20px;display:grid;grid-template-columns:1.2fr 1fr;gap:30px}
+.safety h2{color:#fff}.safety p{color:#d8cdd6;line-height:1.6}.rules{display:grid;gap:10px}.rule{background:#ffffff0d;border:1px solid #ffffff18;border-radius:13px;padding:13px}.rule b{display:block;margin-bottom:4px}.rule span{color:#cfc2cb;font-size:14px}
+.footer{text-align:center;padding:28px 20px;color:#7b6c77;font-size:13px}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#180c1699;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}.box{background:#fff;border-radius:20px;max-width:480px;width:100%;padding:24px;box-shadow:0 25px 70px #0005}
+.box h3{margin:0 0 7px;font-size:24px}.close{float:right;border:0;background:#f3eaf1;border-radius:50%;width:34px;height:34px;font-size:20px}
+.form{display:grid;gap:12px;margin-top:18px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note{font-size:12px;color:var(--muted);line-height:1.5}.submit{border:0;background:var(--primary);color:#fff;padding:13px;border-radius:11px;font-weight:800}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-inner{grid-template-columns:1fr}}
+@media(max-width:560px){
+ .nav-inner{padding:12px 14px}.logo{font-size:22px}.badge{font-size:11px;padding:7px 10px}
+ .hero{padding:55px 18px}.section{padding:38px 14px}.filters{grid-template-columns:1fr 120px}
+ .grid{grid-template-columns:1fr 1fr;gap:12px}.avatar{height:145px;font-size:60px}.body{padding:13px}.name{font-size:18px}.price{font-size:16px}
+ .book{font-size:13px;padding:11px 7px}.safety-inner{padding:38px 14px}.row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span>💗</span> DateMate</div>
+    <div class="badge">18+ Adults Only</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">🔒 Consent • Safety • Privacy</div>
+    <h1>Meet. Connect.<br>Spend Time.</h1>
+    <p>Discover adult companions for social dates and consensual companionship. Every booking is subject to our safety rules and 18+ age requirement.</p>
+    <button class="cta" onclick="document.getElementById('profiles').scrollIntoView({behavior:'smooth'})">Find a Companion</button>
+  </div>
+</section>
+
+<main class="section" id="profiles">
+  <div class="section-head">
+    <div><h2>Find a Companion</h2><p class="sub">Browse available demo profiles and send a booking request.</p></div>
+  </div>
+  <div class="filters">
+    <input id="search" placeholder="Search by name or city" oninput="render()">
+    <select id="gender" onchange="render()">
+      <option value="">All</option><option value="Female">Female</option><option value="Male">Male</option>
+    </select>
+  </div>
+  <div class="grid" id="cards"></div>
+  <div class="empty" id="empty">No companions match your search.</div>
+</main>
+
+<section class="safety">
+ <div class="safety-inner">
+  <div>
+   <h2>Safety comes first</h2>
+   <p>DateMate is designed for adults seeking consensual social companionship. Do not share passwords, OTPs or financial credentials. Meet in public places and leave immediately if you feel unsafe.</p>
+  </div>
+  <div class="rules">
+   <div class="rule"><b>18+ only</b><span>Users must be adults. No minors.</span></div>
+   <div class="rule"><b>Consent required</b><span>Every interaction must be voluntary and respectful.</span></div>
+   <div class="rule"><b>Public meetings</b><span>Prefer safe, public locations and tell someone you trust.</span></div>
+   <div class="rule"><b>No illegal activity</b><span>Listings and bookings must comply with applicable law.</span></div>
+  </div>
+ </div>
+</section>
+
+<footer class="footer">© 2026 DateMate · 18+ only · Consent & safety required · Demo version</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="box">
+  <button class="close" onclick="closeModal()">×</button>
+  <h3>Booking Request</h3>
+  <p id="chosen" class="sub"></p>
+  <div class="form">
+   <div class="row"><input id="date" type="date"><input id="time" type="time"></div>
+   <select id="duration"><option value="1">1 hour</option><option value="2">2 hours</option><option value="3">3 hours</option><option value="4">4 hours</option></select>
+   <button class="submit" onclick="submitBooking()">Send Request</button>
+   <div class="note">Demo only — no real payment or booking is processed. All requests are subject to platform rules and age/identity checks.</div>
+  </div>
+ </div>
+</div>
+
+<script>
+const profiles=[
+ {name:"Aisha",city:"Kolkata",gender:"Female",price:"₹1,500 / hour",emoji:"👩🏻"},
+ {name:"Riya",city:"Durgapur",gender:"Female",price:"₹1,200 / hour",emoji:"👩🏼‍🦰"},
+ {name:"Arjun",city:"Kolkata",gender:"Male",price:"₹1,400 / hour",emoji:"👨🏻"},
+ {name:"Rahul",city:"Asansol",gender:"Male",price:"₹1,100 / hour",emoji:"👨🏽"}
+];
+let selected=null;
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const g=document.getElementById("gender").value;
+ const list=profiles.filter(p=>(!q||p.name.toLowerCase().includes(q)||p.city.toLowerCase().includes(q))&&(!g||p.gender===g));
+ document.getElementById("cards").innerHTML=list.map((p,i)=>`
+  <article class="card">
+   <div class="avatar">${p.emoji}</div>
+   <div class="body"><div class="name">${p.name}</div><div class="meta">${p.city} · ${p.gender} · 18+</div><div class="price">${p.price}</div>
+   <button class="book" onclick="openModal(${profiles.indexOf(p)})">Request Booking</button></div>
+  </article>`).join("");
+ document.getElementById("empty").style.display=list.length?"none":"block";
+}
+function openModal(i){
+ selected=profiles[i];
+ document.getElementById("chosen").textContent=`Requesting ${selected.name} · ${selected.city}`;
+ document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function submitBooking(){
+ const date=document.getElementById("date").value,time=document.getElementById("time").value;
+ if(!date||!time){alert("Please choose a date and time.");return}
+ alert(`Demo request sent for ${selected.name} on ${date} at ${time}. No real booking or payment was processed.`);
+ closeModal();
+}
+render();
+</script>
+</body>
+</html>
